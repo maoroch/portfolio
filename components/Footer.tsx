@@ -31,10 +31,19 @@ function LinkedinIcon({ size = 18 }: { size?: number }) {
   );
 }
 
+function ContraIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z" />
+    </svg>
+  );
+}
+
 const socials = [
   { icon: GithubIcon, label: "GitHub", href: "https://github.com/maoroch" },
   { icon: TelegramIcon, label: "Telegram", href: "https://t.me/Ilyas_ones" },
   { icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com/in/salimovilyass" },
+  { icon: ContraIcon, label: "Contra", href: "https://contra.com/ilyas_salimov_j7tpcm02" },
   { icon: Mail, label: "Email", href: "mailto:contact@ilyas-ones.com" },
 ];
 
@@ -107,7 +116,7 @@ export default function Footer() {
               textTransform: "uppercase",
             }}
           >
-            {t.footer.subtitle} · {new Date().getFullYear()}
+            {t.footer.subtitle} · 2026
           </p>
         </div>
 
@@ -237,4 +246,3 @@ export default function Footer() {
     </footer>
   );
 }
-
