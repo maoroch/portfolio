@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -100,7 +101,7 @@ export default function HomeAbout() {
                 color: "#ccc",
               }}
             >
-              '25
+              '26
             </span>
           </div>
         </div>
@@ -121,7 +122,7 @@ export default function HomeAbout() {
         />
       </div>
 
-      {/* Right: bio */}
+      {/* Right: bio & attribute table */}
       <div>
         <p
           style={{
@@ -146,7 +147,7 @@ export default function HomeAbout() {
             marginBottom: 20,
           }}
         >
-          Ilyas Salimov
+          {t.about.title}
         </h2>
 
         <p
@@ -154,25 +155,26 @@ export default function HomeAbout() {
             color: "var(--text-muted)",
             fontSize: 15,
             lineHeight: 1.8,
-            maxWidth: 420,
+            maxWidth: 540,
             marginBottom: 28,
           }}
         >
-          {t.about.bio1}
+          {t.about.desc}
         </p>
 
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: 10,
+            gap: 12,
             marginBottom: 32,
           }}
         >
           {[
-            { label: lang === "ru" ? "Стек" : "Stack", value: "Next.js · Node.js · TypeScript · PostgreSQL" },
-            { label: lang === "ru" ? "Фокус" : "Focus", value: "CRM · AI Integration · Performance" },
-            { label: lang === "ru" ? "Статус" : "Status", value: t.hero.status },
+            { label: "Role", value: t.about.role },
+            { label: "Core Stack", value: t.about.stack },
+            { label: "Timezone", value: t.about.timezone },
+            { label: "Status", value: t.about.status },
           ].map(({ label, value }) => (
             <div
               key={label}
@@ -185,7 +187,7 @@ export default function HomeAbout() {
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
                   color: "var(--text-subtle)",
-                  minWidth: 52,
+                  minWidth: 84,
                   flexShrink: 0,
                 }}
               >
