@@ -8,40 +8,45 @@ const siteUrl = "https://ilyas-ones.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: "Ilyas Salimov — Full Stack Developer (CRM, AI, Next.js)",
-    template: "%s | Ilyas Salimov",
-  },
-  description: "Full Stack Developer specializing in CRM systems, AI products, Next.js, and scalable web architecture. Open for freelance & consulting.",
+  title: "Ilyas Salimov — Founding Full-Stack & AI Systems Architect",
+  description:
+    "Founding Engineer & Systems Architect building sub-second Next.js platforms, deterministic AI pipelines with 0% calculation hallucinations, and real-time multi-tenant SaaS.",
   keywords: [
-    "Full Stack Developer",
-    "CRM Developer",
-    "AI Integration",
-    "Next.js Developer",
-    "React Engineer",
-    "Node.js",
+    "Founding Engineer",
+    "AI Systems Architect",
+    "Next.js Architect",
+    "Deterministic AI",
+    "Multi-Tenant SaaS",
     "TypeScript",
-    "Разработчик CRM",
-    "Fullstack разработчик",
+    "Python",
+    "FastAPI",
+    "Supabase RLS",
+    "Redis SSE",
   ],
-  authors: [{ name: "Ilyas Salimov", url: siteUrl }],
+  authors: [{ name: "Ilyas Salimov", url: "https://ilyas-ones.com" }],
   creator: "Ilyas Salimov",
   alternates: {
     canonical: "/",
     languages: {
-      "en": "/",
-      "ru": "/",
+      en: "/",
+      ru: "/",
       "x-default": "/",
     },
   },
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    alternateLocale: ["ru_RU"],
-    url: siteUrl,
-    title: "Ilyas Salimov — Full Stack Developer",
-    description: "Full Stack Developer specializing in CRM systems, AI products, Next.js, and scalable web architecture.",
+    title: "Ilyas Salimov — Founding Full-Stack & AI Systems Architect",
+    description:
+      "Sub-second Next.js web applications, deterministic AI pipelines (0% calc drift), and real-time distributed SaaS.",
+    url: "https://ilyas-ones.com",
     siteName: "Ilyas Salimov Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ilyas Salimov — Founding Full-Stack & AI Systems Architect",
+    description:
+      "Sub-second Next.js web applications, deterministic AI pipelines (0% calc drift), and real-time distributed SaaS.",
   },
   robots: {
     index: true,
@@ -69,4 +74,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-
