@@ -153,7 +153,7 @@ export default function HomePage() {
               marginBottom: 32,
             }}
           >
-            🟢 Available for Founding Engineer & Retainer Roles (Q3–Q4 2026)
+            Available for Founding Engineer & Retainer Roles (Q3–Q4 2026)
           </span>
         </div>
         <h1

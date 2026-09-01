@@ -1,101 +1,46 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowUpRight, FileText } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, GitBranch, ExternalLink, FileText } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { projects, CATEGORIES, type ProjectCategory } from "@/data/projects";
 
-const portfolioProjects = [
-  {
-    id: "01",
-    tag: "AI Systems & FinTech",
-    title: "Autonomous Credit Risk & Covenant Audit Engine",
-    description:
-      "Deterministic multi-agent pipeline verifying loan covenant compliance against raw multi-currency bank ledgers with 0% calculation drift and coordinate-level PDF citations.",
-    metrics: "0.00% Math Errors · 93.3% Precision · 1.65ms Retrieval",
-    stack: [
-      "Python 3.11",
-      "Claude 3.5 Sonnet",
-      "Okapi BM25",
-      "Pydantic v2",
-      "Docker",
-    ],
-    links: [
-      {
-        label: "GitHub Repo",
-        url: "https://github.com/maoroch/fintech-compliance-agent",
-      },
-      {
-        label: "Case Study PDF",
-        url: "/docs/fintech-compliance-case-study.pdf",
-      },
-    ],
-  },
-  {
-    id: "02",
-    tag: "Distributed Web & Mobile",
-    title: "Real-Time Multi-City Logistics ERP & Dispatch Engine",
-    description:
-      "End-to-end multi-tenant logistics platform featuring live driver telemetry, 3-tier Row-Level Security (RLS), and automated ledger reconciliation across 4 cities.",
-    metrics: "<300ms Live Sync · 3-Tier RBAC · 4-City Coverage",
-    stack: [
-      "Next.js",
-      "React Native",
-      "Express.js",
-      "Supabase PostgreSQL",
-      "Redis SSE",
-    ],
-    links: [
-      {
-        label: "Contra Case Study",
-        url: "https://contra.com/ilyas_salimov_j7tpcm02",
-      },
-    ],
-  },
-  {
-    id: "03",
-    tag: "Multimodal GenAI & WebGL",
-    title: "Generative AI Interior Staging & Spatial Canvas",
-    description:
-      "Spatial interior transformation platform with an interactive 60fps Before/After comparison canvas, webhook-driven async queue inference, and edge asset optimization.",
-    metrics: "60fps Canvas · Async Webhook Queue · Edge WebP Compression",
-    stack: ["Next.js", "Tailwind CSS", "Framer Motion", "Cloudflare R2"],
-    links: [
-      {
-        label: "GitHub Repo",
-        url: "https://github.com/maoroch/AI-Interior-Designer",
-      },
-    ],
-  },
-  {
-    id: "04",
-    tag: "Headless & Edge Architecture",
-    title: "High-Performance Headless Storefront (Coom Endem)",
-    description:
-      "Modular headless e-commerce architecture engineered for sub-120ms TTFB, decoupled API endpoints, automated Docker deployment, and 95+ Core Web Vitals.",
-    metrics: "<120ms TTFB · 95+ Lighthouse · Zero Layout Shift",
-    stack: ["Next.js 16", "TypeScript", "Docker Compose", "Redis ISR"],
-    links: [
-      {
-        label: "Architecture Spec",
-        url: "https://contra.com/ilyas_salimov_j7tpcm02",
-      },
-    ],
-  },
-];
+const CATEGORY_ACCENT: Record<ProjectCategory, string> = {
+  "AI Agents & Pipelines": "#ff8d78",
+  "SaaS & Platform Engineering": "#7a9e8f",
+  "GenAI Products": "#9b8fce",
+  "Headless & Edge Commerce": "#c4956a",
+};
+
+const LINK_ICONS = {
+  github: <GitBranch size={13} />,
+  "case-study": <ExternalLink size={13} />,
+  demo: <ExternalLink size={13} />,
+  pdf: <FileText size={13} />,
+  external: <ExternalLink size={13} />,
+};
+
+type FilterCategory = "All" | ProjectCategory;
 
 export default function PortfolioPage() {
   const { t } = useLanguage();
   const [isMobile, setIsMobile] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<FilterCategory>("All");
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const filterTabs: FilterCategory[] = ["All", ...CATEGORIES];
+
+  const filteredProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
 
   return (
     <div
@@ -113,8 +58,8 @@ export default function PortfolioPage() {
           padding: isMobile ? "40px 20px 80px" : "60px 24px 100px",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          {/* Badge */}
+        {/* ── Header ── */}
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span
             style={{
               fontFamily: "'DM Mono', monospace",
@@ -133,14 +78,13 @@ export default function PortfolioPage() {
             {t.portfolio.badge}
           </span>
 
-          {/* Title */}
           <h1
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: isMobile
                 ? "clamp(34px, 8vw, 48px)"
                 : "clamp(42px, 6vw, 58px)",
-              color: "var(--text)",
+              color: "#415B57",
               letterSpacing: "-0.02em",
               marginBottom: 18,
               lineHeight: 1.15,
@@ -149,7 +93,6 @@ export default function PortfolioPage() {
             {t.portfolio.title}
           </h1>
 
-          {/* Description */}
           <p
             style={{
               color: "var(--text-muted)",
@@ -163,166 +106,355 @@ export default function PortfolioPage() {
           </p>
         </div>
 
-        {/* Grid of Case Studies */}
+        {/* ── Category Filter Tabs ── */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 8,
+            justifyContent: "center",
+            marginBottom: 40,
+          }}
+        >
+          {filterTabs.map((cat) => {
+            const isActive = activeCategory === cat;
+            const accentColor =
+              cat === "All" ? "var(--accent)" : CATEGORY_ACCENT[cat as ProjectCategory];
+
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                style={{
+                  fontFamily: "'DM Mono', monospace",
+                  fontSize: 11,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  padding: "8px 16px",
+                  borderRadius: 3,
+                  border: isActive
+                    ? `1px solid ${accentColor}`
+                    : "1px solid var(--border)",
+                  backgroundColor: isActive ? `${accentColor}18` : "transparent",
+                  color: isActive ? accentColor : "var(--text-subtle)",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ── Category label (when filtered) ── */}
+        {activeCategory !== "All" && (
+          <div style={{ marginBottom: 28, textAlign: "center" }}>
+            <p
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: 11,
+                color: "var(--text-subtle)",
+                letterSpacing: "0.08em",
+              }}
+            >
+              {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} in this category
+            </p>
+          </div>
+        )}
+
+        {/* ── Projects Grid ── */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: 28,
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: 24,
           }}
         >
-          {portfolioProjects.map((project) => (
-            <div
-              key={project.id}
-              style={{
-                backgroundColor: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                borderRadius: 4,
-                padding: "32px 28px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
+          {filteredProjects.map((project) => {
+            const accentColor = CATEGORY_ACCENT[project.category];
+
+            return (
+              <div
+                key={project.slug}
+                style={{
+                  backgroundColor: "var(--bg-2)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 4,
+                  padding: "28px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  transition: "border-color 0.2s, box-shadow 0.2s",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `${accentColor}60`;
+                  e.currentTarget.style.boxShadow = `0 4px 24px ${accentColor}14`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--border)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                {/* Category indicator strip */}
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 16,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 2,
+                    backgroundColor: accentColor,
+                    opacity: 0.7,
                   }}
-                >
-                  <span
+                />
+
+                <div>
+                  {/* Category + ID */}
+                  <div
                     style={{
-                      fontFamily: "'DM Mono', monospace",
-                      fontSize: 11,
-                      color: "var(--accent)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 14,
                     }}
                   >
-                    {project.tag}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'DM Mono', monospace",
-                      fontSize: 11,
-                      color: "var(--text-subtle)",
-                    }}
-                  >
-                    {project.id}
-                  </span>
-                </div>
-
-                <h2
-                  style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    fontSize: 22,
-                    color: "var(--text)",
-                    marginBottom: 12,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {project.title}
-                </h2>
-
-                <p
-                  style={{
-                    color: "var(--text-muted)",
-                    fontSize: 13,
-                    lineHeight: 1.65,
-                    marginBottom: 20,
-                  }}
-                >
-                  {project.description}
-                </p>
-
-                {/* Metrics */}
-                <div
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    fontSize: 11,
-                    color: "var(--accent)",
-                    backgroundColor: "var(--accent-bg)",
-                    border: "1px solid var(--accent-dim)",
-                    padding: "6px 12px",
-                    borderRadius: 2,
-                    marginBottom: 20,
-                    display: "inline-block",
-                  }}
-                >
-                  ⚡ {project.metrics}
-                </div>
-
-                {/* Stack */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 6,
-                    marginBottom: 28,
-                  }}
-                >
-                  {project.stack.map((tech) => (
                     <span
-                      key={tech}
+                      style={{
+                        fontFamily: "'DM Mono', monospace",
+                        fontSize: 10,
+                        color: accentColor,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      {project.category}
+                    </span>
+                    <span
                       style={{
                         fontFamily: "'DM Mono', monospace",
                         fontSize: 10,
                         color: "var(--text-subtle)",
-                        border: "1px solid var(--border)",
-                        padding: "2px 8px",
-                        borderRadius: 2,
                       }}
                     >
-                      {tech}
+                      {project.id}
                     </span>
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              {/* Links */}
-              <div
-                style={{
-                  display: "flex",
-                  gap: 16,
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  borderTop: "1px solid var(--border)",
-                  paddingTop: 16,
-                }}
-              >
-                {project.links.map((link) => {
-                  const isExternal = link.url.startsWith("http");
-                  const isPdf = link.url.endsWith(".pdf");
-                  return (
+                  {/* Title — clickable link to detail page */}
+                  <Link href={`/portfolio/${project.slug}`} style={{ textDecoration: "none" }}>
+                    <h2
+                      style={{
+                        fontFamily: "'DM Serif Display', serif",
+                        fontSize: 20,
+                        color: "#415B57",
+                        marginBottom: 10,
+                        lineHeight: 1.25,
+                        transition: "color 0.2s",
+                        cursor: "pointer",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = accentColor)}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#415B57")}
+                    >
+                      {project.title}
+                    </h2>
+                  </Link>
+
+                  <p
+                    style={{
+                      color: "var(--text-muted)",
+                      fontSize: 13,
+                      lineHeight: 1.65,
+                      marginBottom: 18,
+                    }}
+                  >
+                    {project.shortDescription}
+                  </p>
+
+                  {/* Metrics badge */}
+                  <div
+                    style={{
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: 10,
+                      color: accentColor,
+                      backgroundColor: `${accentColor}12`,
+                      border: `1px solid ${accentColor}30`,
+                      padding: "5px 10px",
+                      borderRadius: 2,
+                      marginBottom: 18,
+                      display: "inline-block",
+                    }}
+                  >
+                    ⚡ {project.metrics}
+                  </div>
+
+                  {/* Stack */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 5,
+                      marginBottom: 24,
+                    }}
+                  >
+                    {project.stack.slice(0, 5).map((tech) => (
+                      <span
+                        key={tech}
+                        style={{
+                          fontFamily: "'DM Mono', monospace",
+                          fontSize: 10,
+                          color: "var(--text-subtle)",
+                          border: "1px solid var(--border)",
+                          padding: "2px 7px",
+                          borderRadius: 2,
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.stack.length > 5 && (
+                      <span
+                        style={{
+                          fontFamily: "'DM Mono', monospace",
+                          fontSize: 10,
+                          color: "var(--text-subtle)",
+                          padding: "2px 7px",
+                        }}
+                      >
+                        +{project.stack.length - 5} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 12,
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    borderTop: "1px solid var(--border)",
+                    paddingTop: 14,
+                  }}
+                >
+                  {/* Case Study link → detail page */}
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 5,
+                      color: accentColor,
+                      fontSize: 11,
+                      fontFamily: "'DM Mono', monospace",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      fontWeight: 500,
+                      textDecoration: "none",
+                    }}
+                  >
+                    Case Study
+                    <ArrowUpRight size={13} />
+                  </Link>
+
+                  {/* External links */}
+                  {project.links.map((link) => (
                     <a
                       key={link.label}
                       href={link.url}
-                      target={isExternal || isPdf ? "_blank" : undefined}
-                      rel={isExternal || isPdf ? "noopener noreferrer" : undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: 6,
-                        color: "var(--accent)",
-                        fontSize: 12,
+                        gap: 5,
+                        color: "var(--text-subtle)",
+                        fontSize: 11,
                         fontFamily: "'DM Mono', monospace",
                         textTransform: "uppercase",
-                        fontWeight: 500,
+                        letterSpacing: "0.08em",
                         textDecoration: "none",
+                        transition: "color 0.2s",
                       }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = accentColor)}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-subtle)")}
                     >
-                      {isPdf && <FileText size={13} />}
-                      <span>{link.label}</span>
-                      <ArrowUpRight size={14} />
+                      {LINK_ICONS[link.type]}
+                      {link.label}
                     </a>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+
+        {/* ── CTA strip ── */}
+        <div
+          style={{
+            marginTop: 64,
+            padding: "32px 28px",
+            backgroundColor: "var(--bg-2)",
+            border: "1px solid var(--border)",
+            borderRadius: 4,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 20,
+          }}
+        >
+          <div>
+            <p
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: 10,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: "var(--text-subtle)",
+                marginBottom: 6,
+              }}
+            >
+              Founding Engineer & AI Architect
+            </p>
+            <p
+              style={{
+                fontFamily: "'DM Serif Display', serif",
+                fontSize: 20,
+                color: "#415B57",
+              }}
+            >
+              Building a venture-backed startup or scaling architecture?
+            </p>
+          </div>
+          <a
+            href="https://t.me/ilyasalimov"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 7,
+              padding: "12px 22px",
+              backgroundColor: "var(--accent)",
+              color: "#FAF7F2",
+              borderRadius: 3,
+              fontFamily: "'DM Mono', monospace",
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              textDecoration: "none",
+              fontWeight: 500,
+              flexShrink: 0,
+            }}
+          >
+            Schedule 15-Min Call
+            <ArrowUpRight size={13} />
+          </a>
         </div>
       </section>
     </div>
