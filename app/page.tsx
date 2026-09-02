@@ -12,6 +12,7 @@ import {
   Send,
   GitBranch,
   ExternalLink,
+  Star,
 } from "lucide-react";
 import { getFeaturedArticles } from "@/lib/data";
 import ArticleCardHome from "@/components/ArticleCard";
@@ -23,6 +24,11 @@ import {
   getProjectShortDesc,
   getProjectMetrics,
 } from "@/data/projects";
+import {
+  getFeaturedTestimonials,
+  getTestimonialText,
+  CONTRA_REVIEWS_URL,
+} from "@/data/testimonials";
 
 const FOCUS_ICONS = [Layers, Bot, Zap, Activity];
 
@@ -535,6 +541,190 @@ export default function HomePage() {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* ── Featured Testimonials Block ── */}
+      <section
+        style={{
+          borderTop: "1px solid var(--border)",
+          backgroundColor: "var(--bg-2)",
+          padding: "80px 24px",
+        }}
+      >
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              marginBottom: 40,
+              flexWrap: "wrap",
+              gap: 16,
+            }}
+          >
+            <div>
+              <p
+                style={{
+                  fontFamily: "'DM Mono', monospace",
+                  fontSize: 11,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--text-muted)",
+                  marginBottom: 8,
+                }}
+              >
+                {t.testimonials.badge}
+              </p>
+              <h2
+                style={{
+                  fontFamily: "'DM Serif Display', serif",
+                  fontSize: "clamp(28px, 5vw, 36px)",
+                  color: "var(--text)",
+                }}
+              >
+                {t.testimonials.title}
+              </h2>
+            </div>
+            <Link
+              href="/testimonials"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                color: "var(--accent)",
+                textDecoration: "none",
+                fontSize: 13,
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+              }}
+            >
+              {t.testimonials.allReviews} <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: 20,
+            }}
+          >
+            {getFeaturedTestimonials().map((testimonial) => {
+              const reviewText = getTestimonialText(testimonial, lang);
+              return (
+                <div
+                  key={testimonial.id}
+                  style={{
+                    backgroundColor: "var(--bg)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                    padding: "28px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 16,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* Accent strip */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: 2,
+                      backgroundColor: "#C8A96E",
+                      opacity: 0.5,
+                    }}
+                  />
+
+                  {/* Stars */}
+                  <div style={{ display: "flex", gap: 3 }}>
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                      <Star
+                        key={i}
+                        size={12}
+                        fill="#C8A96E"
+                        stroke="#C8A96E"
+                      />
+                    ))}
+                  </div>
+
+                  {/* Quote text */}
+                  <p
+                    style={{
+                      color: "var(--text-muted)",
+                      fontSize: 14,
+                      lineHeight: 1.75,
+                      fontStyle: "italic",
+                      flexGrow: 1,
+                    }}
+                  >
+                    &ldquo;{reviewText}&rdquo;
+                  </p>
+
+                  {/* Author */}
+                  <div
+                    style={{
+                      borderTop: "1px solid var(--border)",
+                      paddingTop: 14,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <p
+                        style={{
+                          fontFamily: "'DM Serif Display', serif",
+                          fontSize: 15,
+                          color: "#415B57",
+                          marginBottom: 2,
+                        }}
+                      >
+                        {testimonial.authorName}
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "'DM Mono', monospace",
+                          fontSize: 10,
+                          color: "var(--text-subtle)",
+                          letterSpacing: "0.04em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {testimonial.company}
+                      </p>
+                    </div>
+                    <a
+                      href={CONTRA_REVIEWS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontFamily: "'DM Mono', monospace",
+                        fontSize: 10,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        color: "var(--text-subtle)",
+                        textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 4,
+                        padding: "4px 8px",
+                        border: "1px solid var(--border)",
+                        borderRadius: 2,
+                      }}
+                    >
+                      Contra <ExternalLink size={9} />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

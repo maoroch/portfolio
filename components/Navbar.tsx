@@ -10,6 +10,7 @@ const rawLinks = [
   { href: "/", key: "home" as const },
   { href: "/portfolio", key: "portfolio" as const },
   { href: "/articles", key: "articles" as const },
+  { href: "/testimonials", key: "reviews" as const },
   { href: "/about", key: "about" as const },
   { href: "/contacts", key: "contacts" as const },
 ];
