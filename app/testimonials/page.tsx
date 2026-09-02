@@ -205,7 +205,7 @@ export default function TestimonialsPage() {
                 marginTop: 6,
               }}
             >
-              {t.testimonials.verifiedClient}s
+              {lang === "ru" ? "Верифицированных клиента" : "Verified Clients"}
             </p>
           </div>
 
@@ -217,38 +217,27 @@ export default function TestimonialsPage() {
             }}
           />
 
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 6,
-                justifyContent: "center",
-                marginBottom: 4,
+                gap: 8,
               }}
             >
-              <ContraLogo />
+              <div style={{ transform: "scale(1.2)" }}>
+                <ContraLogo />
+              </div>
               <span
                 style={{
                   fontFamily: "'DM Serif Display', serif",
-                  fontSize: 20,
+                  fontSize: 28,
                   color: "#415B57",
                 }}
               >
                 Contra
               </span>
             </div>
-            <p
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: 10,
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                color: "var(--text-subtle)",
-              }}
-            >
-              {t.testimonials.verifiedOnContra}
-            </p>
           </div>
         </div>
 
