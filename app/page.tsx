@@ -9,119 +9,29 @@ import {
   Bot,
   Zap,
   Activity,
-  FileText,
   Send,
+  GitBranch,
+  ExternalLink,
 } from "lucide-react";
 import { getFeaturedArticles } from "@/lib/data";
 import ArticleCardHome from "@/components/ArticleCard";
 import HomeAbout from "@/components/HomeAbout";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import {
+  projects,
+  getProjectTitle,
+  getProjectShortDesc,
+  getProjectMetrics,
+} from "@/data/projects";
 
-const featuredProjects = [
-  {
-    id: "01",
-    tag: "AI Systems & FinTech",
-    title: "Autonomous Credit Risk & Covenant Audit Engine",
-    description:
-      "Deterministic multi-agent pipeline verifying loan covenant compliance against raw multi-currency bank ledgers with 0% calculation drift and coordinate-level PDF citations.",
-    metrics: "0.00% Math Errors · 93.3% Precision · 1.65ms Retrieval",
-    stack: [
-      "Python 3.11",
-      "Claude 3.5 Sonnet",
-      "Okapi BM25",
-      "Pydantic v2",
-      "Docker",
-    ],
-    links: [
-      {
-        label: "GitHub Repo",
-        url: "https://github.com/maoroch/fintech-compliance-agent",
-      },
-      {
-        label: "Case Study PDF",
-        url: "/docs/fintech-compliance-case-study.pdf",
-      },
-    ],
-  },
-  {
-    id: "02",
-    tag: "Distributed Web & Mobile",
-    title: "Real-Time Multi-City Logistics ERP & Dispatch Engine",
-    description:
-      "End-to-end multi-tenant logistics platform featuring live driver telemetry, 3-tier Row-Level Security (RLS), and automated ledger reconciliation across 4 cities.",
-    metrics: "<300ms Live Sync · 3-Tier RBAC · 4-City Coverage",
-    stack: [
-      "Next.js",
-      "React Native",
-      "Express.js",
-      "Supabase PostgreSQL",
-      "Redis SSE",
-    ],
-    links: [
-      {
-        label: "Contra Case Study",
-        url: "https://contra.com/ilyas_salimov_j7tpcm02",
-      },
-    ],
-  },
-  {
-    id: "03",
-    tag: "Multimodal GenAI & WebGL",
-    title: "Generative AI Interior Staging & Spatial Canvas",
-    description:
-      "Spatial interior transformation platform with an interactive 60fps Before/After comparison canvas, webhook-driven async queue inference, and edge asset optimization.",
-    metrics: "60fps Canvas · Async Webhook Queue · Edge WebP Compression",
-    stack: ["Next.js", "Tailwind CSS", "Framer Motion", "Cloudflare R2"],
-    links: [
-      {
-        label: "GitHub Repo",
-        url: "https://github.com/maoroch/AI-Interior-Designer",
-      },
-    ],
-  },
-  {
-    id: "04",
-    tag: "Headless & Edge Architecture",
-    title: "High-Performance Headless Storefront (Coom Endem)",
-    description:
-      "Modular headless e-commerce architecture engineered for sub-120ms TTFB, decoupled API endpoints, automated Docker deployment, and 95+ Core Web Vitals.",
-    metrics: "<120ms TTFB · 95+ Lighthouse · Zero Layout Shift",
-    stack: ["Next.js 16", "TypeScript", "Docker Compose", "Redis ISR"],
-    links: [
-      {
-        label: "Architecture Spec",
-        url: "https://contra.com/ilyas_salimov_j7tpcm02",
-      },
-    ],
-  },
-];
-
-const focusAreasList = [
-  {
-    icon: Layers,
-    title: "Distributed Systems & Multi-Tenant SaaS",
-    desc: "Designing fault-tolerant backends, strict multi-tenant data isolation via PostgreSQL RLS, and event-driven micro-architectures.",
-  },
-  {
-    icon: Bot,
-    title: "Deterministic AI Pipelines",
-    desc: "Decoupling semantic LLM extraction from sandboxed arithmetic computation to achieve 0% hallucinations in production workflows.",
-  },
-  {
-    icon: Zap,
-    title: "High-Velocity Next.js & Edge Performance",
-    desc: "Sub-second App Router web applications, Edge ISR caching strategies, bundle optimization, and zero layout shift UI.",
-  },
-  {
-    icon: Activity,
-    title: "Real-Time Telemetry & Queue Engines",
-    desc: "Sub-300ms push updates using Redis Server-Sent Events (SSE), background BullMQ worker queues, and automated retry mechanisms.",
-  },
-];
+const FOCUS_ICONS = [Layers, Bot, Zap, Activity];
 
 export default function HomePage() {
   const { lang, t } = useLanguage();
   const articles = getFeaturedArticles();
+
+  // Featured 3 projects for the home page
+  const featuredProjects = projects.slice(0, 3);
 
   return (
     <div style={{ paddingTop: 60, position: "relative" }}>
@@ -153,40 +63,42 @@ export default function HomePage() {
               marginBottom: 32,
             }}
           >
-            Available for Founding Engineer & Retainer Roles (Q3–Q4 2026)
+            {t.hero.status}
           </span>
         </div>
+
         <h1
           className="animate-fade-up delay-2"
           style={{
             fontFamily: "'DM Serif Display', serif",
-            fontSize: "clamp(42px, 7vw, 80px)",
-            lineHeight: 1.05,
+            fontSize: "clamp(38px, 6.5vw, 76px)",
+            lineHeight: 1.08,
             letterSpacing: "-0.03em",
             color: "var(--text)",
-            maxWidth: 820,
+            maxWidth: 860,
             marginBottom: 28,
           }}
         >
-          Founding Full-Stack<br />
+          {t.hero.titleLine1}
+          <br />
           <span style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
-            &amp; AI Systems Architect
+            {t.hero.titleLine2}
           </span>
         </h1>
+
         <p
           className="animate-fade-up delay-3"
           style={{
             color: "var(--text-muted)",
             fontSize: 17,
-            maxWidth: 580,
+            maxWidth: 620,
             lineHeight: 1.7,
             marginBottom: 48,
           }}
         >
-          I engineer sub-second Next.js web applications, deterministic AI
-          pipelines with 0% calculation hallucinations, and real-time
-          distributed platforms for Seed &amp; Series A startups.
+          {t.hero.desc}
         </p>
+
         <div
           className="animate-fade-up delay-4"
           style={{ display: "flex", gap: 16, flexWrap: "wrap" }}
@@ -208,7 +120,7 @@ export default function HomePage() {
               borderRadius: 2,
             }}
           >
-            <Calendar size={14} /> Schedule 15-Min Call
+            <Calendar size={14} /> {t.hero.scheduleCall}
           </a>
           <a
             href="#projects"
@@ -226,13 +138,13 @@ export default function HomePage() {
               borderRadius: 2,
             }}
           >
-            Explore Architectures ↓
+            {t.hero.exploreArchitectures}
           </a>
         </div>
 
         {/* Bento Hero Benchmarks */}
         <div
-          className="animate-fade-up delay-5 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-border mt-16"
+          className="animate-fade-up delay-5"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -242,145 +154,42 @@ export default function HomePage() {
             marginTop: 64,
           }}
         >
-          <div>
-            <div
-              style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: 32,
-                fontWeight: 600,
-                color: "var(--text)",
-              }}
-            >
-              0.00%
+          {t.hero.stats.benchmarks.map((bench, i) => (
+            <div key={i}>
+              <div
+                style={{
+                  fontFamily: "'DM Serif Display', serif",
+                  fontSize: 32,
+                  fontWeight: 600,
+                  color: "var(--text)",
+                }}
+              >
+                {bench.value}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  color: "var(--text-muted)",
+                  marginTop: 4,
+                  fontFamily: "'DM Mono', monospace",
+                }}
+              >
+                {bench.title}
+              </div>
+              <p
+                style={{
+                  fontSize: 11,
+                  color: "var(--text-subtle)",
+                  marginTop: 4,
+                  lineHeight: 1.4,
+                }}
+              >
+                {bench.desc}
+              </p>
             </div>
-            <div
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                color: "var(--text-muted)",
-                marginTop: 4,
-                fontFamily: "'DM Mono', monospace",
-              }}
-            >
-              Calculation Drift
-            </div>
-            <p
-              style={{
-                fontSize: 11,
-                color: "var(--text-subtle)",
-                marginTop: 4,
-                lineHeight: 1.4,
-              }}
-            >
-              Deterministic Python sandboxes
-            </p>
-          </div>
-
-          <div>
-            <div
-              style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: 32,
-                fontWeight: 600,
-                color: "var(--text)",
-              }}
-            >
-              &lt; 300ms
-            </div>
-            <div
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                color: "var(--text-muted)",
-                marginTop: 4,
-                fontFamily: "'DM Mono', monospace",
-              }}
-            >
-              Live Telemetry
-            </div>
-            <p
-              style={{
-                fontSize: 11,
-                color: "var(--text-subtle)",
-                marginTop: 4,
-                lineHeight: 1.4,
-              }}
-            >
-              Distributed Redis SSE stream
-            </p>
-          </div>
-
-          <div>
-            <div
-              style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: 32,
-                fontWeight: 600,
-                color: "var(--text)",
-              }}
-            >
-              &lt; 120ms
-            </div>
-            <div
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                color: "var(--text-muted)",
-                marginTop: 4,
-                fontFamily: "'DM Mono', monospace",
-              }}
-            >
-              Edge TTFB
-            </div>
-            <p
-              style={{
-                fontSize: 11,
-                color: "var(--text-subtle)",
-                marginTop: 4,
-                lineHeight: 1.4,
-              }}
-            >
-              Next.js 16 + Redis Edge ISR
-            </p>
-          </div>
-
-          <div>
-            <div
-              style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: 32,
-                fontWeight: 600,
-                color: "var(--text)",
-              }}
-            >
-              1.65ms
-            </div>
-            <div
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                color: "var(--text-muted)",
-                marginTop: 4,
-                fontFamily: "'DM Mono', monospace",
-              }}
-            >
-              Lexical Retrieval
-            </div>
-            <p
-              style={{
-                fontSize: 11,
-                color: "var(--text-subtle)",
-                marginTop: 4,
-                lineHeight: 1.4,
-              }}
-            >
-              In-memory Okapi BM25 index
-            </p>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -429,47 +238,50 @@ export default function HomePage() {
               border: "1px solid var(--border)",
             }}
           >
-            {focusAreasList.map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                style={{ backgroundColor: "var(--bg-2)", padding: "32px 28px" }}
-              >
+            {t.focusAreas.items.map((item, idx) => {
+              const Icon = FOCUS_ICONS[idx] || Layers;
+              return (
                 <div
-                  style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 2,
-                    backgroundColor: "var(--accent-bg)",
-                    border: "1px solid var(--accent-dim)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: 20,
-                  }}
+                  key={item.id}
+                  style={{ backgroundColor: "var(--bg-2)", padding: "32px 28px" }}
                 >
-                  <Icon size={16} color="var(--accent)" />
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 2,
+                      backgroundColor: "var(--accent-bg)",
+                      border: "1px solid var(--accent-dim)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <Icon size={16} color="var(--accent)" />
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "'DM Serif Display', serif",
+                      fontSize: 18,
+                      color: "var(--text)",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    style={{
+                      color: "var(--text-muted)",
+                      fontSize: 13,
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {item.desc}
+                  </p>
                 </div>
-                <h3
-                  style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    fontSize: 18,
-                    color: "var(--text)",
-                    marginBottom: 10,
-                  }}
-                >
-                  {title}
-                </h3>
-                <p
-                  style={{
-                    color: "var(--text-muted)",
-                    fontSize: 13,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {desc}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -530,7 +342,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* 4 Concrete Engineering Case Study Cards */}
+        {/* Featured Case Study Cards */}
         <div
           style={{
             display: "grid",
@@ -538,143 +350,172 @@ export default function HomePage() {
             gap: 24,
           }}
         >
-          {featuredProjects.map((project) => (
-            <div
-              key={project.id}
-              style={{
-                backgroundColor: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                borderRadius: 4,
-                padding: "32px 28px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                position: "relative",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 16,
-                  }}
-                >
-                  <span
+          {featuredProjects.map((project) => {
+            const displayTitle = getProjectTitle(project, lang);
+            const displayDesc = getProjectShortDesc(project, lang);
+            const displayMetrics = getProjectMetrics(project, lang);
+            const displayCategory =
+              t.portfolio.categoryNames[project.category] || project.category;
+
+            return (
+              <div
+                key={project.id}
+                style={{
+                  backgroundColor: "var(--bg-2)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 4,
+                  padding: "32px 28px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  position: "relative",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 16,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'DM Mono', monospace",
+                        fontSize: 11,
+                        color: "var(--accent)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      {displayCategory}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "'DM Mono', monospace",
+                        fontSize: 11,
+                        color: "var(--text-subtle)",
+                      }}
+                    >
+                      {project.id}
+                    </span>
+                  </div>
+
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <h3
+                      style={{
+                        fontFamily: "'DM Serif Display', serif",
+                        fontSize: 22,
+                        color: "#415B57",
+                        marginBottom: 12,
+                        lineHeight: 1.2,
+                        transition: "color 0.2s",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {displayTitle}
+                    </h3>
+                  </Link>
+
+                  <p
+                    style={{
+                      color: "var(--text-muted)",
+                      fontSize: 13,
+                      lineHeight: 1.65,
+                      marginBottom: 20,
+                    }}
+                  >
+                    {displayDesc}
+                  </p>
+
+                  {/* Metrics */}
+                  <div
                     style={{
                       fontFamily: "'DM Mono', monospace",
                       fontSize: 11,
                       color: "var(--accent)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
+                      backgroundColor: "var(--accent-bg)",
+                      border: "1px solid var(--accent-dim)",
+                      padding: "6px 12px",
+                      borderRadius: 2,
+                      marginBottom: 20,
+                      display: "inline-block",
                     }}
                   >
-                    {project.tag}
-                  </span>
-                  <span
+                    ⚡ {displayMetrics}
+                  </div>
+
+                  {/* Tech Stack Badges */}
+                  <div
                     style={{
-                      fontFamily: "'DM Mono', monospace",
-                      fontSize: 11,
-                      color: "var(--text-subtle)",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 6,
+                      marginBottom: 28,
                     }}
                   >
-                    {project.id}
-                  </span>
+                    {project.stack.slice(0, 5).map((tech) => (
+                      <span
+                        key={tech}
+                        style={{
+                          fontFamily: "'DM Mono', monospace",
+                          fontSize: 10,
+                          color: "var(--text-subtle)",
+                          border: "1px solid var(--border)",
+                          padding: "2px 8px",
+                          borderRadius: 2,
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <h3
-                  style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    fontSize: 22,
-                    color: "var(--text)",
-                    marginBottom: 12,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {project.title}
-                </h3>
-
-                <p
-                  style={{
-                    color: "var(--text-muted)",
-                    fontSize: 13,
-                    lineHeight: 1.65,
-                    marginBottom: 20,
-                  }}
-                >
-                  {project.description}
-                </p>
-
-                {/* Metrics */}
-                <div
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    fontSize: 11,
-                    color: "var(--accent)",
-                    backgroundColor: "var(--accent-bg)",
-                    border: "1px solid var(--accent-dim)",
-                    padding: "6px 12px",
-                    borderRadius: 2,
-                    marginBottom: 20,
-                    display: "inline-block",
-                  }}
-                >
-                  ⚡ {project.metrics}
-                </div>
-
-                {/* Tech Stack Badges */}
+                {/* Action Links */}
                 <div
                   style={{
                     display: "flex",
+                    gap: 16,
                     flexWrap: "wrap",
-                    gap: 6,
-                    marginBottom: 28,
+                    alignItems: "center",
+                    borderTop: "1px solid var(--border)",
+                    paddingTop: 16,
                   }}
                 >
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      style={{
-                        fontFamily: "'DM Mono', monospace",
-                        fontSize: 10,
-                        color: "var(--text-subtle)",
-                        border: "1px solid var(--border)",
-                        padding: "2px 8px",
-                        borderRadius: 2,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      color: "var(--accent)",
+                      fontSize: 12,
+                      fontFamily: "'DM Mono', monospace",
+                      textTransform: "uppercase",
+                      fontWeight: 500,
+                      textDecoration: "none",
+                    }}
+                  >
+                    <span>{t.portfolio.caseStudy}</span>
+                    <ArrowUpRight size={14} />
+                  </Link>
 
-              {/* Action Links */}
-              <div
-                style={{
-                  display: "flex",
-                  gap: 16,
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  borderTop: "1px solid var(--border)",
-                  paddingTop: 16,
-                }}
-              >
-                {project.links.map((link) => {
-                  const isExternal = link.url.startsWith("http");
-                  const isPdf = link.url.endsWith(".pdf");
-                  return (
+                  {project.links.map((link) => (
                     <a
                       key={link.label}
                       href={link.url}
-                      target={isExternal || isPdf ? "_blank" : undefined}
-                      rel={isExternal || isPdf ? "noopener noreferrer" : undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
                         gap: 6,
-                        color: "var(--accent)",
+                        color: "var(--text-subtle)",
                         fontSize: 12,
                         fontFamily: "'DM Mono', monospace",
                         textTransform: "uppercase",
@@ -682,15 +523,18 @@ export default function HomePage() {
                         textDecoration: "none",
                       }}
                     >
-                      {isPdf && <FileText size={13} />}
+                      {link.type === "github" ? (
+                        <GitBranch size={13} />
+                      ) : (
+                        <ExternalLink size={13} />
+                      )}
                       <span>{link.label}</span>
-                      <ArrowUpRight size={14} />
                     </a>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

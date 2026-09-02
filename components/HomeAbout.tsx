@@ -171,10 +171,10 @@ export default function HomeAbout() {
           }}
         >
           {[
-            { label: "Role", value: t.about.role },
-            { label: "Core Stack", value: t.about.stack },
-            { label: "Timezone", value: t.about.timezone },
-            { label: "Status", value: t.about.status },
+            { label: lang === "ru" ? "Роль" : "Role", value: t.about.role },
+            { label: lang === "ru" ? "Стек" : "Core Stack", value: t.about.stack },
+            { label: lang === "ru" ? "Часовой пояс" : "Timezone", value: t.about.timezone },
+            { label: lang === "ru" ? "Статус" : "Status", value: t.about.status },
           ].map(({ label, value }) => (
             <div
               key={label}

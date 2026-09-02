@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, GitBranch, ExternalLink, FileText } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { projects, CATEGORIES, type ProjectCategory } from "@/data/projects";
+import {
+  projects,
+  CATEGORIES,
+  type ProjectCategory,
+  getProjectTitle,
+  getProjectShortDesc,
+  getProjectMetrics,
+} from "@/data/projects";
 
 const CATEGORY_ACCENT: Record<ProjectCategory, string> = {
   "AI Agents & Pipelines": "#ff8d78",
@@ -24,7 +31,7 @@ const LINK_ICONS = {
 type FilterCategory = "All" | ProjectCategory;
 
 export default function PortfolioPage() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const [isMobile, setIsMobile] = useState(false);
   const [activeCategory, setActiveCategory] = useState<FilterCategory>("All");
 
@@ -41,6 +48,11 @@ export default function PortfolioPage() {
     activeCategory === "All"
       ? projects
       : projects.filter((p) => p.category === activeCategory);
+
+  const getCategoryLabel = (cat: FilterCategory) => {
+    if (cat === "All") return t.portfolio.all;
+    return t.portfolio.categoryNames[cat] || cat;
+  };
 
   return (
     <div
@@ -97,7 +109,7 @@ export default function PortfolioPage() {
             style={{
               color: "var(--text-muted)",
               fontSize: isMobile ? 15 : 17,
-              maxWidth: 580,
+              maxWidth: 620,
               lineHeight: 1.7,
               margin: "0 auto",
             }}
@@ -142,7 +154,7 @@ export default function PortfolioPage() {
                   whiteSpace: "nowrap",
                 }}
               >
-                {cat}
+                {getCategoryLabel(cat)}
               </button>
             );
           })}
@@ -159,7 +171,10 @@ export default function PortfolioPage() {
                 letterSpacing: "0.08em",
               }}
             >
-              {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} in this category
+              {filteredProjects.length}{" "}
+              {filteredProjects.length === 1
+                ? t.portfolio.singleProjectCount
+                : t.portfolio.projectsCount}
             </p>
           </div>
         )}
@@ -174,6 +189,10 @@ export default function PortfolioPage() {
         >
           {filteredProjects.map((project) => {
             const accentColor = CATEGORY_ACCENT[project.category];
+            const displayTitle = getProjectTitle(project, lang);
+            const displayDesc = getProjectShortDesc(project, lang);
+            const displayMetrics = getProjectMetrics(project, lang);
+            const displayCategory = t.portfolio.categoryNames[project.category] || project.category;
 
             return (
               <div
@@ -231,7 +250,7 @@ export default function PortfolioPage() {
                         letterSpacing: "0.08em",
                       }}
                     >
-                      {project.category}
+                      {displayCategory}
                     </span>
                     <span
                       style={{
@@ -259,7 +278,7 @@ export default function PortfolioPage() {
                       onMouseEnter={(e) => (e.currentTarget.style.color = accentColor)}
                       onMouseLeave={(e) => (e.currentTarget.style.color = "#415B57")}
                     >
-                      {project.title}
+                      {displayTitle}
                     </h2>
                   </Link>
 
@@ -271,7 +290,7 @@ export default function PortfolioPage() {
                       marginBottom: 18,
                     }}
                   >
-                    {project.shortDescription}
+                    {displayDesc}
                   </p>
 
                   {/* Metrics badge */}
@@ -288,7 +307,7 @@ export default function PortfolioPage() {
                       display: "inline-block",
                     }}
                   >
-                    ⚡ {project.metrics}
+                    ⚡ {displayMetrics}
                   </div>
 
                   {/* Stack */}
@@ -324,7 +343,7 @@ export default function PortfolioPage() {
                           padding: "2px 7px",
                         }}
                       >
-                        +{project.stack.length - 5} more
+                        +{project.stack.length - 5} {t.portfolio.moreTech}
                       </span>
                     )}
                   </div>
@@ -357,7 +376,7 @@ export default function PortfolioPage() {
                       textDecoration: "none",
                     }}
                   >
-                    Case Study
+                    {t.portfolio.caseStudy}
                     <ArrowUpRight size={13} />
                   </Link>
 
@@ -419,7 +438,7 @@ export default function PortfolioPage() {
                 marginBottom: 6,
               }}
             >
-              Founding Engineer & AI Architect
+              {t.portfolio.ctaSubtitle}
             </p>
             <p
               style={{
@@ -428,7 +447,7 @@ export default function PortfolioPage() {
                 color: "#415B57",
               }}
             >
-              Building a venture-backed startup or scaling architecture?
+              {t.portfolio.ctaTitle}
             </p>
           </div>
           <a
@@ -452,7 +471,7 @@ export default function PortfolioPage() {
               flexShrink: 0,
             }}
           >
-            Schedule 15-Min Call
+            {t.portfolio.scheduleCall}
             <ArrowUpRight size={13} />
           </a>
         </div>
