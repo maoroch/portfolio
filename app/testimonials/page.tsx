@@ -148,14 +148,14 @@ export default function TestimonialsPage() {
             borderRadius: 4,
           }}
         >
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <div
               style={{
                 fontFamily: "'DM Serif Display', serif",
                 fontSize: 36,
                 color: "#C8A96E",
                 lineHeight: 1,
-                marginBottom: 4,
+                marginBottom: 8,
               }}
             >
               5.0
@@ -168,7 +168,7 @@ export default function TestimonialsPage() {
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 color: "var(--text-subtle)",
-                marginTop: 6,
+                marginTop: 8,
               }}
             >
               {t.testimonials.verifiedOnContra}
@@ -217,27 +217,16 @@ export default function TestimonialsPage() {
             }}
           />
 
-          <div style={{ textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
+                fontFamily: "'DM Serif Display', serif",
+                fontSize: 32,
+                color: "#415B57",
               }}
             >
-              <div style={{ transform: "scale(1.2)" }}>
-                <ContraLogo />
-              </div>
-              <span
-                style={{
-                  fontFamily: "'DM Serif Display', serif",
-                  fontSize: 28,
-                  color: "#415B57",
-                }}
-              >
-                Contra
-              </span>
-            </div>
+              Contra
+            </span>
           </div>
         </div>
 
