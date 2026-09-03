@@ -13,6 +13,7 @@ import {
   GitBranch,
   ExternalLink,
   Star,
+  CheckCircle2,
 } from "lucide-react";
 import { getFeaturedArticles } from "@/lib/data";
 import ArticleCardHome from "@/components/ArticleCard";
@@ -31,6 +32,66 @@ import {
 } from "@/data/testimonials";
 
 const FOCUS_ICONS = [Layers, Bot, Zap, Activity];
+
+const HOW_I_WORK = [
+  {
+    num: "01",
+    time: "Day 0",
+    en: { title: "15-Min Intro Call", desc: "We align on your problem, timeline, and budget. No pitch — just a technical conversation." },
+    ru: { title: "15-мин вводный звонок", desc: "Определяем задачу, сроки и бюджет. Без питчей — просто технический разговор." },
+  },
+  {
+    num: "02",
+    time: "Day 1",
+    en: { title: "Scope & Proposal", desc: "Written architecture outline, timeline, and fixed price delivered within 24 hours." },
+    ru: { title: "Скоп и предложение", desc: "Письменный архитектурный план, сроки и фиксированная цена — в течение 24 часов." },
+  },
+  {
+    num: "03",
+    time: "Week 1",
+    en: { title: "Foundation", desc: "Repo setup, CI/CD, architecture decisions, and first working vertical slice shipped." },
+    ru: { title: "Фундамент", desc: "Настройка репозитория, CI/CD, архитектурные решения и первый рабочий срез." },
+  },
+  {
+    num: "04",
+    time: "Ongoing",
+    en: { title: "Bi-Weekly Demos", desc: "Working software every two weeks. Full transparency — you see real progress, not status reports." },
+    ru: { title: "Демо раз в 2 недели", desc: "Рабочий продукт каждые 2 недели. Полная прозрачность — реальный прогресс, а не отчёты." },
+  },
+  {
+    num: "05",
+    time: "Final",
+    en: { title: "Clean Handoff", desc: "Full documentation, deployment runbook, and architecture decision records. You own everything." },
+    ru: { title: "Передача кода", desc: "Полная документация, runbook и архитектурные решения. Все права на код — у вас." },
+  },
+];
+
+const HOME_FAQS = [
+  {
+    en: { q: "Do you work with pre-seed startups?", a: "Yes — early-stage is where I do my best work. Sprint contracts are the most common fit: defined scope, fast delivery, no long-term lock-in." },
+    ru: { q: "Вы работаете с pre-seed стартапами?", a: "Да — ранние стадии это моё. Sprint-контракты подходят лучше всего: чёткий скоп, быстрая поставка, без долгосрочных обязательств." },
+  },
+  {
+    en: { q: "Are you available for US and EU clients?", a: "Yes. I actively work with clients across the US and Europe. During our intro call we agree on a working schedule that fits your timezone — mornings, afternoons, or async." },
+    ru: { q: "Вы работаете с US и EU клиентами?", a: "Да. Работаю с клиентами из США и Европы. На вводном звонке договариваемся о рабочем графике, удобном вам.", },
+  },
+  {
+    en: { q: "Can you build both the web app and backend?", a: "Yes — full-stack is my default. Next.js frontend, Node/Python API, PostgreSQL + Redis, Docker/K8s deployment. React Native mobile when needed." },
+    ru: { q: "Вы строите и фронтенд, и бэкенд?", a: "Да — full-stack это мой стандартный режим. Next.js, Node/Python API, PostgreSQL + Redis, Docker/K8s. При необходимости и React Native мобильные." },
+  },
+  {
+    en: { q: "Is an NDA available?", a: "Yes. Happy to sign an NDA before the first call. All client projects are strictly confidential by default." },
+    ru: { q: "Доступно ли NDA?", a: "Да. Готов подписать NDA до первого звонка. Все клиентские проекты строго конфиденциальны по умолчанию." },
+  },
+  {
+    en: { q: "How quickly can you start?", a: "Sprint contracts: within 1 week of signed agreement. Retainer/full-time: ~2 weeks lead time. Current availability: Q3–Q4 2026." },
+    ru: { q: "Как быстро вы можете начать?", a: "Sprint: в течение 1 недели после подписания. Ретейнер/full-time: ~2 недели. Текущая доступность: Q3–Q4 2026." },
+  },
+  {
+    en: { q: "Do you take equity?", a: "For founding engineer roles — yes, equity is part of the conversation. For sprint and retainer contracts — cash only." },
+    ru: { q: "Вы берёте equity?", a: "Для founding engineer ролей — да, equity обсуждается. Для sprint и ретейнер контрактов — только деньги." },
+  },
+];
 
 export default function HomePage() {
   const { lang, t } = useLanguage();
@@ -416,7 +477,7 @@ export default function HomePage() {
                       style={{
                         fontFamily: "'DM Serif Display', serif",
                         fontSize: 22,
-                        color: "#415B57",
+                        color: "var(--header-color)",
                         marginBottom: 12,
                         lineHeight: 1.2,
                         transition: "color 0.2s",
@@ -681,7 +742,7 @@ export default function HomePage() {
                         style={{
                           fontFamily: "'DM Serif Display', serif",
                           fontSize: 15,
-                          color: "#415B57",
+                          color: "var(--header-color)",
                           marginBottom: 2,
                         }}
                       >
@@ -801,6 +862,85 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── How I Work ── */}
+      <section
+        style={{
+          borderTop: "1px solid var(--border)",
+          backgroundColor: "var(--bg-2)",
+          padding: "80px 24px",
+        }}
+      >
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 36, flexWrap: "wrap", gap: 16 }}>
+            <div>
+              <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 8 }}>
+                {lang === "ru" ? "Процесс" : "The Process"}
+              </p>
+              <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(26px, 4vw, 34px)", color: "var(--text)" }}>
+                {lang === "ru" ? "Как мы работаем вместе" : "How We Work Together"}
+              </h2>
+            </div>
+            <Link href="/hire" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--accent)", textDecoration: "none", fontSize: 13, letterSpacing: "0.04em", textTransform: "uppercase", fontWeight: 500 }}>
+              {lang === "ru" ? "Условия сотрудничества" : "Engagement Models"} <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 1, backgroundColor: "var(--border)", border: "1px solid var(--border)", borderRadius: 4, overflow: "hidden" }}>
+            {HOW_I_WORK.map((step) => (
+              <div key={step.num} style={{ backgroundColor: "var(--bg-2)", padding: "24px 20px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 22, color: "var(--accent)", fontWeight: 600 }}>
+                    {step.num}
+                  </span>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-subtle)", border: "1px solid var(--border)", padding: "2px 7px", borderRadius: 2 }}>
+                    {step.time}
+                  </span>
+                </div>
+                <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 16, color: "var(--text)", marginBottom: 8, lineHeight: 1.25 }}>
+                  {lang === "ru" ? step.ru.title : step.en.title}
+                </h3>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.65 }}>
+                  {lang === "ru" ? step.ru.desc : step.en.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 36, flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 8 }}>
+              FAQ
+            </p>
+            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(26px, 4vw, 34px)", color: "var(--text)" }}>
+              {lang === "ru" ? "Вопросы и ответы" : "Common Questions"}
+            </h2>
+          </div>
+          <Link href="/hire#faq" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--accent)", textDecoration: "none", fontSize: 13, letterSpacing: "0.04em", textTransform: "uppercase", fontWeight: 500 }}>
+            {lang === "ru" ? "Все вопросы" : "Full FAQ"} <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 1, backgroundColor: "var(--border)", border: "1px solid var(--border)", borderRadius: 4, overflow: "hidden" }}>
+          {HOME_FAQS.map((faq, i) => (
+            <div key={i} style={{ backgroundColor: "var(--bg-2)", padding: "20px 24px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+              <CheckCircle2 size={14} color="var(--accent)" style={{ flexShrink: 0, marginTop: 3 }} />
+              <div>
+                <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: 15, color: "var(--text)", marginBottom: 6, lineHeight: 1.3 }}>
+                  {lang === "ru" ? faq.ru.q : faq.en.q}
+                </p>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.65 }}>
+                  {lang === "ru" ? faq.ru.a : faq.en.a}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* CTA Banner */}
       <section

@@ -104,7 +104,7 @@ export default function ProjectDetailView({ project }: { project: Project }) {
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: "clamp(30px, 5vw, 48px)",
-              color: "#415B57",
+              color: "var(--header-color)",
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
               marginBottom: 20,
@@ -149,9 +149,9 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                   transition: "all 0.2s",
                   ...(link.type === "github"
                     ? {
-                        backgroundColor: "#415B57",
-                        color: "#FAF7F2",
-                        border: "1px solid #415B57",
+                        backgroundColor: "var(--header-color)",
+                        color: "var(--bg)",
+                        border: "1px solid var(--header-color)",
                       }
                     : {
                         backgroundColor: "transparent",
@@ -293,7 +293,7 @@ export default function ProjectDetailView({ project }: { project: Project }) {
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: 24,
-              color: "#415B57",
+              color: "var(--header-color)",
               marginBottom: 20,
             }}
           >
@@ -343,7 +343,7 @@ export default function ProjectDetailView({ project }: { project: Project }) {
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: 24,
-              color: "#415B57",
+              color: "var(--header-color)",
               marginBottom: 16,
             }}
           >

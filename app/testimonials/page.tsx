@@ -14,10 +14,10 @@ import {
 function StarRating({ rating }: { rating: number }) {
   return (
     <div style={{ display: "flex", gap: 3 }}>
-      {Array.from({ length: 5 }).map((_, i) => (
+      {Array.from({ length: 1 }).map((_, i) => (
         <Star
           key={i}
-          size={13}
+          size={20}
           fill={i < rating ? "#C8A96E" : "none"}
           stroke={i < rating ? "#C8A96E" : "var(--border)"}
         />
@@ -83,7 +83,7 @@ export default function TestimonialsPage() {
             style={{
               fontFamily: "'DM Serif Display', serif",
               fontSize: "clamp(36px, 6vw, 56px)",
-              color: "#415B57",
+              color: "var(--header-color)",
               letterSpacing: "-0.02em",
               marginBottom: 18,
               lineHeight: 1.1,
@@ -151,16 +151,19 @@ export default function TestimonialsPage() {
           <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <div
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
                 fontFamily: "'DM Serif Display', serif",
                 fontSize: 36,
                 color: "#C8A96E",
                 lineHeight: 1,
-                marginBottom: 8,
               }}
             >
               5.0
+              <StarRating rating={5} />
             </div>
-            <StarRating rating={5} />
+
             <p
               style={{
                 fontFamily: "'DM Mono', monospace",
@@ -188,7 +191,7 @@ export default function TestimonialsPage() {
               style={{
                 fontFamily: "'DM Serif Display', serif",
                 fontSize: 36,
-                color: "#415B57",
+                color: "var(--header-color)",
                 lineHeight: 1,
                 marginBottom: 4,
               }}
@@ -222,10 +225,31 @@ export default function TestimonialsPage() {
               style={{
                 fontFamily: "'DM Serif Display', serif",
                 fontSize: 32,
-                color: "#415B57",
+                color: "var(--header-color)",
               }}
             >
               Contra
+            </span>
+          </div>
+
+
+          <div
+            style={{
+              width: 1,
+              height: 56,
+              backgroundColor: "var(--border)",
+            }}
+          />
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span
+              style={{
+                fontFamily: "'DM Serif Display', serif",
+                fontSize: 32,
+                color: "var(--header-color)",
+              }}
+            >
+              Upwork
             </span>
           </div>
         </div>
@@ -327,7 +351,7 @@ export default function TestimonialsPage() {
                       style={{
                         fontFamily: "'DM Serif Display', serif",
                         fontSize: 17,
-                        color: "#415B57",
+                        color: "var(--header-color)",
                         marginBottom: 3,
                       }}
                     >
@@ -473,7 +497,7 @@ export default function TestimonialsPage() {
               style={{
                 fontFamily: "'DM Serif Display', serif",
                 fontSize: 24,
-                color: "#415B57",
+                color: "var(--header-color)",
                 marginBottom: 8,
               }}
             >

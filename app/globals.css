@@ -18,10 +18,41 @@
   --accent-bg: #fff4f0;
   --green: #7a9e8f;
   --green-bg: #eff5f2;
+  --header-color: #415B57;
+  --nav-bg-scrolled: rgba(250, 247, 242, 0.96);
+  --nav-bg-top: rgba(250, 247, 242, 0.85);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { 
+[data-theme="dark"] {
+  --bg: #121110;
+  --bg-2: #191816;
+  --bg-3: #22201D;
+  --border: #2C2926;
+  --border-light: #383430;
+  --text: #EFEBE5;
+  --text-muted: #EFEBE5;
+  --text-subtle: #736C65;
+  --accent: #ff8d78;
+  --accent-dim: #f3775f;
+  --accent-bg: #291815;
+  --green: #8EB4A2;
+  --green-bg: #16241E;
+  --header-color: #D8D2C9;
+  --nav-bg-scrolled: rgba(18, 17, 16, 0.96);
+  --nav-bg-top: rgba(18, 17, 16, 0.85);
+}
+
+[data-theme="dark"] img {
+  opacity: 0.95;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -webkit-touch-callout: none;
@@ -40,39 +71,99 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--accent); color: var(--bg); }
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+::-webkit-scrollbar {
+  width: 4px;
+}
 
-h1, h2, h3, h4, h5 {
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: 'DM Serif Display', serif;
   line-height: 1.2;
 }
-h1, h2, h3 {
-  color: #415B57 !important;
+
+h1,
+h2,
+h3 {
+  color: var(--header-color) !important;
 }
 
-code, pre, .mono { font-family: 'DM Mono', monospace; }
+code,
+pre,
+.mono {
+  font-family: 'DM Mono', monospace;
+}
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-.animate-fade-up { animation: fade-up 0.6s ease forwards; }
-.animate-fade-in { animation: fade-in 0.5s ease forwards; }
-.delay-1 { animation-delay: 0.1s; opacity: 0; }
-.delay-2 { animation-delay: 0.2s; opacity: 0; }
-.delay-3 { animation-delay: 0.3s; opacity: 0; }
-.delay-4 { animation-delay: 0.4s; opacity: 0; }
-.delay-5 { animation-delay: 0.5s; opacity: 0; }
+.animate-fade-up {
+  animation: fade-up 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.delay-2 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.delay-3 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.delay-4 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.delay-5 {
+  animation-delay: 0.5s;
+  opacity: 0;
+}
 
 /* Navbar styles */
 header {
@@ -94,11 +185,11 @@ main {
   body {
     font-size: 14px;
   }
-  
+
   h1 {
     font-size: clamp(28px, 6vw, 42px);
   }
-  
+
   h2 {
     font-size: clamp(22px, 5vw, 32px);
   }
@@ -108,11 +199,11 @@ main {
   body {
     font-size: 15px;
   }
-  
+
   h1 {
     font-size: clamp(36px, 6vw, 56px);
   }
-  
+
   h2 {
     font-size: clamp(24px, 5vw, 40px);
   }
@@ -122,11 +213,11 @@ main {
   body {
     font-size: 15px;
   }
-  
+
   h1 {
     font-size: clamp(42px, 7vw, 80px);
   }
-  
+
   h2 {
     font-size: clamp(28px, 5vw, 48px);
   }
@@ -134,7 +225,9 @@ main {
 
 /* Touch-friendly elements on mobile */
 @media (hover: none) and (pointer: coarse) {
-  button, a {
+
+  button,
+  a {
     min-height: 44px;
     min-width: 44px;
   }
@@ -156,7 +249,8 @@ main {
   top: 30px;
   left: 0;
   right: 0;
-  height: 100vh; /* только зона обложки */
+  height: 100vh;
+  /* только зона обложки */
   pointer-events: none;
   z-index: 0;
   background-image:

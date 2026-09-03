@@ -73,7 +73,7 @@ export default function ContactCards() {
 
   const contacts = [
     { icon: TelegramIcon, label: "Telegram", value: "@Ilyas_ones", href: "https://t.me/Ilyas_ones", desc: t.contacts.telegramDesc },
-    { icon: LinkedinIcon, label: "LinkedIn", value: "salimovilyass", href: "https://www.linkedin.com/in/salimovilyass", desc: t.contacts.linkedinDesc },
+    { icon: LinkedinIcon, label: "LinkedIn", value: "salimovilyas", href: "https://www.linkedin.com/in/salimovilyas", desc: t.contacts.linkedinDesc },
     { icon: GithubIcon, label: "GitHub", value: "maoroch", href: "https://github.com/maoroch", desc: t.contacts.githubDesc },
     { icon: Mail, label: "Email", value: "contact@ilyas-ones.com", href: "mailto:contact@ilyas-ones.com", desc: t.contacts.emailDesc },
   ];
