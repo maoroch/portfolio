@@ -96,7 +96,7 @@ export default function PortfolioPage() {
               fontSize: isMobile
                 ? "clamp(34px, 8vw, 48px)"
                 : "clamp(42px, 6vw, 58px)",
-              color: "#415B57",
+              color: "var(--header-color)",
               letterSpacing: "-0.02em",
               marginBottom: 18,
               lineHeight: 1.15,
@@ -269,14 +269,14 @@ export default function PortfolioPage() {
                       style={{
                         fontFamily: "'DM Serif Display', serif",
                         fontSize: 20,
-                        color: "#415B57",
+                        color: "var(--header-color)",
                         marginBottom: 10,
                         lineHeight: 1.25,
                         transition: "color 0.2s",
                         cursor: "pointer",
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = accentColor)}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "#415B57")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--header-color)")}
                     >
                       {displayTitle}
                     </h2>
@@ -444,7 +444,7 @@ export default function PortfolioPage() {
               style={{
                 fontFamily: "'DM Serif Display', serif",
                 fontSize: 20,
-                color: "#415B57",
+                color: "var(--header-color)",
               }}
             >
               {t.portfolio.ctaTitle}

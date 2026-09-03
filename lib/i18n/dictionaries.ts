@@ -9,6 +9,7 @@ export const dictionaries = {
       reviews: "Reviews",
       about: "About",
       contacts: "Contacts",
+      hire: "Hire Me",
     },
     hero: {
       status: "Available for Founding Engineer & Retainer Roles (Q3–Q4 2026)",
@@ -125,7 +126,7 @@ export const dictionaries = {
       bio2: "Specializing in sub-second Next.js web applications, strict multi-tenant PostgreSQL RLS isolation, and deterministic AI pipelines.",
       role: "Founding Engineer · Fractional Tech Lead",
       stack: "Next.js · TypeScript · Python · Supabase RLS · Redis",
-      timezone: "Full overlap with US (EST/PST) & Europe (CET)",
+      timezone: "Available for US & Europe clients · Schedule adapts to you",
       status: "Open for dedicated contracts & retainers",
       skillsTag: "Tech Stack",
       ctaDesc: "Open for dedicated contracts, fractional tech leadership, and high-velocity execution sprints.",
@@ -166,6 +167,7 @@ export const dictionaries = {
       reviews: "Отзывы",
       about: "Обо мне",
       contacts: "Контакты",
+      hire: "Нанять",
     },
     hero: {
       status: "Открыт для ролей Founding Engineer и ретейнеров (Q3–Q4 2026)",
@@ -282,7 +284,7 @@ export const dictionaries = {
       bio2: "Разрабатываю веб-приложения на Next.js с откликом до секунды, строгую multi-tenant изоляцию через PostgreSQL RLS и детерминированные AI-пайплайны.",
       role: "Founding Engineer · Fractional Tech Lead",
       stack: "Next.js · TypeScript · Python · Supabase RLS · Redis",
-      timezone: "Полное пересечение по часовым поясам с США (EST/PST) и Европой (CET)",
+      timezone: "Работаю с US и EU клиентами · График под вас",
       status: "Открыт для выделенных контрактов и ретейнеров",
       skillsTag: "Технологический стек",
       ctaDesc: "Открыт для проектной работы, роли Founding Engineer и спринтов разработки.",
