@@ -1,0 +1,124 @@
+/* Project Detail Page Responsive Styles */
+
+/* Responsive grid layout */
+@media (max-width: 1023px) {
+  .project-content {
+    display: flex !important;
+    flex-direction: column;
+    gap: clamp(40px, 8vw, 60px) !important;
+  }
+  
+  .project-sidebar {
+    width: 100%;
+    position: relative !important;
+    top: auto !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-content {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 280px);
+    gap: clamp(40px, 8vw, 64px);
+  }
+}
+
+/* Header responsive spacing */
+.project-header {
+  padding: clamp(48px, 10vw, 64px) 16px 32px;
+}
+
+@media (min-width: 768px) {
+  .project-header {
+    padding: clamp(56px, 12vw, 80px) 24px 48px;
+  }
+}
+
+/* Button touch targets */
+.project-actions a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Title responsive sizing */
+.project-title {
+  font-size: clamp(28px, 6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Content typography */
+.project-description {
+  font-size: clamp(14px, 4vw, 17px);
+  line-height: 1.7;
+}
+
+.project-body {
+  font-size: clamp(13px, 3vw, 15px);
+  line-height: 1.8;
+}
+
+/* Sidebar tech stack */
+.tech-stack-item {
+  font-size: 10px;
+  padding: 4px 8px;
+}
+
+/* Filter tabs sticky behavior */
+@media (max-width: 640px) {
+  .portfolio-filter {
+    top: 70px;
+    z-index: 50;
+  }
+}
+
+/* Improve performance */
+.project-sidebar {
+  will-change: transform;
+}
+
+/* Smooth transitions */
+.project-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.project-link:hover {
+  transform: translateX(-2px);
+}
+
+/* Tags and stack wrapping */
+.project-tags,
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Back button */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  color: var(--accent);
+  transform: translateX(-2px);
+}
+
+/* Prevent layout shift on mobile menu open */
+html {
+  overflow-x: hidden;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
