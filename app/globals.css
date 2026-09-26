@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #FAF7F2;
+  --bg-2: #F5F0E8;
+  --bg-3: #EFE8DE;
+  --border: #E8E0D5;
+  --border-light: #D9D0C4;
+  --text: #4a4541;
+  --text-muted: #8b8076;
+  --text-subtle: #b5a89a;
+  --accent: #ff8d78;
+  --accent-dim: #e87860;
+  --accent-bg: #fff4f0;
+  --green: #7a9e8f;
+  --green-bg: #eff5f2;
+  --header-color: #415B57;
+  --nav-bg-scrolled: rgba(250, 247, 242, 0.96);
+  --nav-bg-top: rgba(250, 247, 242, 0.85);
+}
+
+[data-theme="dark"] {
+  --bg: #121110;
+  --bg-2: #191816;
+  --bg-3: #22201D;
+  --border: #2C2926;
+  --border-light: #383430;
+  --text: #EFEBE5;
+  --text-muted: #EFEBE5;
+  --text-subtle: #736C65;
+  --accent: #ff8d78;
+  --accent-dim: #f3775f;
+  --accent-bg: #291815;
+  --green: #8EB4A2;
+  --green-bg: #16241E;
+  --header-color: #D8D2C9;
+  --nav-bg-scrolled: rgba(18, 17, 16, 0.96);
+  --nav-bg-top: rgba(18, 17, 16, 0.85);
+}
+
+[data-theme="dark"] img {
+  opacity: 0.95;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -webkit-touch-callout: none;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  /* Предотвращение сдвига при открытии меню */
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'DM Serif Display', serif;
+  line-height: 1.2;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--header-color) !important;
+}
+
+code,
+pre,
+.mono {
+  font-family: 'DM Mono', monospace;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.delay-2 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.delay-3 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.delay-4 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.delay-5 {
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+/* Navbar styles */
+header {
+  will-change: transform;
+}
+
+/* Smooth transitions for nav links */
+a {
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Main content padding to account for fixed navbar */
+main {
+  position: relative;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 6vw, 42px);
+  }
+
+  h2 {
+    font-size: clamp(22px, 5vw, 32px);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: clamp(36px, 6vw, 56px);
+  }
+
+  h2 {
+    font-size: clamp(24px, 5vw, 40px);
+  }
+}
+
+@media (min-width: 1025px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: clamp(42px, 7vw, 80px);
+  }
+
+  h2 {
+    font-size: clamp(28px, 5vw, 48px);
+  }
+}
+
+/* Touch-friendly elements on mobile */
+@media (hover: none) and (pointer: coarse) {
+
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Grid paper hero background */
+/* Grid paper hero background */
+.hero-grid-bg {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  /* только зона обложки */
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.343) 0%, transparent 65%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 65%);
+}
