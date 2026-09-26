@@ -1,0 +1,258 @@
+/* Footer Component Styles */
+
+.footer {
+  border-top: 1px solid var(--border);
+  background-color: var(--bg);
+  transition: all 0.3s ease;
+}
+
+.footerContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.footerMobile {
+  padding: 40px 16px;
+  margin-top: 60px;
+}
+
+.footerDesktop {
+  padding: 48px 24px;
+  margin-top: 80px;
+}
+
+.footerContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footerMobileContent {
+  flex-direction: column;
+  gap: 32px;
+}
+
+.footerDesktopContent {
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Brand Section */
+.brand {
+  flex: 1 1 auto;
+}
+
+.brandName {
+  font-family: "'DM Serif Display', serif";
+  font-size: 18px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.brandNameMobile {
+  font-size: 16px;
+}
+
+.brandSubtitle {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brandSubtitleMobile {
+  font-size: 11px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.navLink {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.navLink:hover {
+  color: var(--accent);
+}
+
+/* Mobile Navigation */
+.navMobile {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.navLinkMobile {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: var(--bg-2);
+}
+
+.navLinkMobile:hover {
+  background-color: var(--bg-3);
+  color: var(--accent);
+}
+
+/* Social Links */
+.socials {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.socialsMobile {
+  gap: 16px;
+}
+
+.socialLink {
+  color: var(--text-muted);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.socialLink:hover {
+  background-color: rgba(255, 141, 120, 0.1);
+  color: var(--accent);
+  transform: scale(1.1) translateY(-2px);
+}
+
+.socialLink:active {
+  transform: scale(0.95) translateY(0);
+}
+
+/* Footer Bottom */
+.footerBottom {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footerBottomMobile {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footerBottomDesktop {
+  align-items: center;
+  flex-direction: row;
+}
+
+.copyright {
+  color: var(--text-subtle);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.footerLink {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: var(--accent);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .footerContainer {
+    padding: 0 16px;
+  }
+  
+  .brand {
+    flex: 1 1 100%;
+  }
+  
+  .navMobile {
+    margin-top: 32px;
+  }
+  
+  .socials {
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .footerContent {
+    gap: 32px;
+  }
+  
+  .nav {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .footerLink,
+  .navLink,
+  .socialLink {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .footer {
+    border-top: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navMobile,
+  .socials {
+    display: none;
+  }
+}
